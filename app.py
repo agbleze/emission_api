@@ -94,10 +94,18 @@ def make_prediction(state_selected, lga_selected, sector_selected, credit_amt,
             prediction_desc = f'Household with the selected characteristics is predicted to emit {prediction} kg carbon dioxide'
             return (prediction, prediction_desc) #False, dash.no_update, prediction
         
+ 
+ #%%
+import pandas as pd 
+prediction_inputs = {'state_name': 3, 'lga': 12, 
+                    'sector': 2, 'credit_mean': 123.5, 
+                    'income_mean': 321.2
+                    }
+
+prediction_inputs_df = pd.DataFrame(data=prediction_inputs, index=[0])       
         
-        
-    #%%
-    loaded_model.predict(1, 2, 3, 4, 5)
+#%%
+loaded_model.predict(prediction_inputs_df)
 
 
 

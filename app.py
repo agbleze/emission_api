@@ -17,7 +17,7 @@ joblib.load(model_path)
 
 #%%
 class PredictionInput(BaseModel):
-    parameter: List[Any]
+    parameter: dict
 
 class PredictionOutput(BaseModel):
     emission: float
@@ -49,8 +49,28 @@ class CarbonEmissionModel:
             raise RuntimeError("Model is not loaded")
         prediction = self.model.predict([input.parameter])
         
-        
 
+
+"""
+TODO:
+1. Send Dict of values to API
+1.i when submit button is clicked, it put values selected
+into dict and makes API request
+2. API recieves sent dict and convert to df
+3. API feeds df into model for prediction
+4. API returns prediction
+5. Prediction is shown on the dashboard
+
+"""        
+app = FastAPI()
+@app.post("/predict")
+async def get_prediction(input: PredictionInput):
+    prediction_inputs = input.parameter
+    
+    
+    
+    
+    
 
 #%%
 def make_prediction(state_selected, lga_selected, sector_selected, credit_amt, 
@@ -97,18 +117,25 @@ def make_prediction(state_selected, lga_selected, sector_selected, credit_amt,
  
  #%%
 import pandas as pd 
-prediction_inputs = {'state_name': 3, 'lga': 12, 
-                    'sector': 2, 'credit_mean': 123.5, 
-                    'income_mean': 321.2
+prediction_inputs = {'state_name': 'Bayela', 'lga': 108, 
+                    'sector': 'RURAL', 'credit_mean': 70, 
+                    'income_mean': 600
                     }
 
 prediction_inputs_df = pd.DataFrame(data=prediction_inputs, index=[0])       
-        
+   
 #%%
-loaded_model.predict(prediction_inputs_df)
+if not all(prediction_inputs_df):
+    print('Not ready')
+else:
+    print('Go!')
+            
+                    
+#%%
+loaded_model.predict(prediction_inputs_df)[0]
 
 
-
+#%%
 
 
 # %%

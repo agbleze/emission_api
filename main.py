@@ -28,7 +28,7 @@ async def startup():
     carbon_emision_model.load_model()
 
 if __name__ == '__main__':
-    uvicorn.run(app=app, port=8000, log_level='info')
+    uvicorn.run(app=app, port=5000, log_level='info')
 #%%
 # echo '{"parameter": {"state_name": "Bayela", "lga": 108, "sector": "RURAL", "credit_mean": 70, "income_mean": 600}}' | http POST http://127.0.0.1:8000/predict
 

@@ -5,15 +5,16 @@ import joblib
 from sklearn.pipeline import Pipeline
 from typing import List, Any, Optional, Tuple
 import os
+import pandas as pd
 
 #%%
-loaded_model = joblib.load("model_used.model")
+#loaded_model = joblib.load("model_used.model")
 
 #%%
-model_path = os.path.join(os.path.dirname(__file__), "model_used.model")
+#model_path = os.path.join(os.path.dirname(__file__), "model_used.model")
 
 #%%
-joblib.load(model_path)
+#joblib.load(model_path)
 
 #%%
 class PredictionInput(BaseModel):
@@ -47,8 +48,28 @@ class CarbonEmissionModel:
         """
         if not self.model:
             raise RuntimeError("Model is not loaded")
-        prediction = self.model.predict([input.parameter])
+        prediction_inputs = input.parameter
+        prediction_inputs_df = pd.DataFrame(data=prediction_inputs, index=[0])
+    
+        prediction = self.model.predict(prediction_inputs_df)
+        emission = prediction[0]
+        return PredictionOutput(emission=emission)
         
+
+carbon_emision_model = CarbonEmissionModel()
+
+app = FastAPI()
+@app.post("/predict")
+async def get_prediction(output: PredictionOutput = Depends(carbon_emision_model.predict)
+                         ) -> PredictionOutput:
+    return output
+
+@app.on_event('startup')
+async def startup():
+    carbon_emision_model.load_model()
+
+
+
 
 
 """
@@ -62,10 +83,16 @@ into dict and makes API request
 5. Prediction is shown on the dashboard
 
 """        
-app = FastAPI()
-@app.post("/predict")
-async def get_prediction(input: PredictionInput):
-    prediction_inputs = input.parameter
+# app = FastAPI()
+# @app.post("/predict")
+# async def get_prediction(input: PredictionInput):
+#     prediction_inputs = input.parameter
+#     prediction_inputs_df = pd.DataFrame(data=prediction_inputs, index=[0])
+    
+    
+    
+    
+
     
     
     
@@ -73,69 +100,72 @@ async def get_prediction(input: PredictionInput):
     
 
 #%%
-def make_prediction(state_selected, lga_selected, sector_selected, credit_amt, 
-                    income_amt, predict_button):
-    ctx = callback_context
-    button_clicked = ctx.triggered[0]['prop_id'].split('.')[0]
+# def make_prediction(state_selected, lga_selected, sector_selected, credit_amt, 
+#                     income_amt, predict_button):
+#     ctx = callback_context
+#     button_clicked = ctx.triggered[0]['prop_id'].split('.')[0]
     
-    # prediction_input = [state_selected, lga_selected, sector_selected, credit_amt,
-    #                     income_amt]
+#     # prediction_input = [state_selected, lga_selected, sector_selected, credit_amt,
+#     #                     income_amt]
     
     
     
-    prediction_inputs = {'state_name': state_selected, 'lga': lga_selected, 
-                         'sector': sector_selected, 'credit_mean': credit_amt, 
-                         'income_mean': income_amt
-                         }
-    prediction_inputs_df = pd.DataFrame(data=prediction_inputs, index=[0])
+#     prediction_inputs = {'state_name': state_selected, 'lga': lga_selected, 
+#                          'sector': sector_selected, 'credit_mean': credit_amt, 
+#                          'income_mean': income_amt
+#                          }
+#     prediction_inputs_df = pd.DataFrame(data=prediction_inputs, index=[0])
 
     
-    if ((not button_clicked) or (button_clicked != 'id_predict_emission') 
-        or (not any(prediction_inputs_df)) or (not predict_button)
-        ):
-        PreventUpdate
+#     if ((not button_clicked) or (button_clicked != 'id_predict_emission') 
+#         or (not any(prediction_inputs_df)) or (not predict_button)
+#         ):
+#         PreventUpdate
         
-    if button_clicked == 'id_predict_emission':
+#     if button_clicked == 'id_predict_emission':
         
-        if not all(prediction_inputs_df):
-            PreventUpdate
+#         if not all(prediction_inputs_df):
+#             PreventUpdate
             
-            # message = ('All parameters must be provided. Either some values have not \
-            #             been provided or invalid values were provided. Please select the \
-            #            right values for all parameters from the dropdown. \
-            #             Then, click on predict clicks button to \
-            #             predict number of clicks'
-            #            )
-            # return True, message, dash.no_update
+#             # message = ('All parameters must be provided. Either some values have not \
+#             #             been provided or invalid values were provided. Please select the \
+#             #            right values for all parameters from the dropdown. \
+#             #             Then, click on predict clicks button to \
+#             #             predict number of clicks'
+#             #            )
+#             # return True, message, dash.no_update
         
-        if all(prediction_inputs_df):
-            result = loaded_model.predict(prediction_inputs_df)[0]
-            prediction = round(result)
-            prediction_desc = f'Household with the selected characteristics is predicted to emit {prediction} kg carbon dioxide'
-            return (prediction, prediction_desc) #False, dash.no_update, prediction
+#         if all(prediction_inputs_df):
+#             result = loaded_model.predict(prediction_inputs_df)[0]
+#             prediction = round(result)
+#             prediction_desc = f'Household with the selected characteristics is predicted to emit {prediction} kg carbon dioxide'
+#             return (prediction, prediction_desc) #False, dash.no_update, prediction
         
  
  #%%
-import pandas as pd 
-prediction_inputs = {'state_name': 'Bayela', 'lga': 108, 
-                    'sector': 'RURAL', 'credit_mean': 70, 
-                    'income_mean': 600
-                    }
+# import pandas as pd 
+# prediction_inputs = {'state_name': 'Bayela', 'lga': 108, 
+#                     'sector': 'RURAL', 'credit_mean': 70, 
+#                     'income_mean': 600
+#                     }
 
-prediction_inputs_df = pd.DataFrame(data=prediction_inputs, index=[0])       
+#{"state_name": "Bayela", "lga": 108, "sector": "RURAL", "credit_mean": 70, "income_mean": 600}
+
+
+# prediction_inputs_df = pd.DataFrame(data=prediction_inputs, index=[0])       
    
-#%%
-if not all(prediction_inputs_df):
-    print('Not ready')
-else:
-    print('Go!')
+# #%%
+# if not all(prediction_inputs_df):
+#     print('Not ready')
+# else:
+#     print('Go!')
             
                     
-#%%
-loaded_model.predict(prediction_inputs_df)[0]
+# #%%
+# loaded_model.predict(prediction_inputs_df)[0]
 
 
 #%%
-
+# echo '{"parameter": {"state_name": "Bayela", "lga": 108, "sector": "RURAL", "credit_mean": 70, "income_mean": 600}}' | http POST http://127.0.0.1:8000/predict
 
 # %%

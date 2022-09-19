@@ -23,7 +23,7 @@ It is possible to the code on your local machine to have a experience of it work
 1. Create a virtual environment 
 In your terminal create a virtual environment and nagivate into it. A virtual environment can be created below in mac
 
-  ```python3 -m venv {provide a name for virtual environment}```
+  ```python3 -m venv {provide a name for virtual environment}```. Eg  ```python3 -m venv virt```
   
 In this exercise, let assume the virtual environment was name virt. The next will be to navigate into the virtual environment
 
@@ -33,6 +33,23 @@ In this exercise, let assume the virtual environment was name virt. The next wil
  2. Activate the virtual environment as follows (this based on Mac)
   
    ```source bin\activate ```
+
+
+3. Clone repository into the virtual environment
+
+
+```git clone https://github.com/agbleze/emission_api.git```
+
+
+4. Install packages in the requirements.txt file which were used to develop the project
+
+```pip install -r requirements.txt```
+
+
+5. Run the code for the API 
+
+```python main.py```
+This will run the API locally and with the link that it produces, calls can be made to the API. The API link will be something similar to http://127.0.0.1:8000   
 
 
 

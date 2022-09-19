@@ -17,5 +17,18 @@ The state_name is the name of a state in Nigeria, lga is Local Government Area i
 
 
 ### How to run the code for the API
-It is possible to the code on your local machine to have a experience of it works. In order to run the code, the following instructions can be followed
+It is possible to the code on your local machine to have a experience of it works. In order to run the code, the following instructions can be followed;
+
+
+1. Create a virtual environment 
+In your terminal create a virtual environment and nagivate into it. A virtual environment can be created below in mac
+  ```python3 -m venv {provide a name for virtual environment}```
+  
+In this exercise, let assume the virtual environment was name virt. The next will be to navigate into the virtual environment
+
+  ```cd virt ```
+
+
+
+
 

@@ -53,6 +53,7 @@ In this exercise, let assume the virtual environment was name virt. The next wil
 5. Run the code for the API 
 
 ```python main.py```
+
 This will run the API locally and with the link that it produces, calls can be made to the API. The API link will be something similar to http://127.0.0.1:8000   
 
 

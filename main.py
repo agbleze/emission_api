@@ -15,9 +15,9 @@ carbon_emision_model = CarbonEmissionModel()
 app = FastAPI()
 
 # root endpoint
-@app.post("/")
-async def get_default_response():
-    return {"Description:": "Emission prediction api"}
+@app.get("/")
+async def get_api_description():
+    return {"Description:": "This is a machine learning API for carbon emission prediction"}
 
 # create prediction endpoint with post method
 @app.post("/predict")

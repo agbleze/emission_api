@@ -29,10 +29,12 @@ In this exercise, let assume the virtual environment was name virt. The next wil
 
   ```cd virt ```
   
+  
  
  2. Activate the virtual environment as follows (this based on Mac)
   
    ```source bin\activate ```
+
 
 
 3. Clone repository into the virtual environment
@@ -41,9 +43,11 @@ In this exercise, let assume the virtual environment was name virt. The next wil
 ```git clone https://github.com/agbleze/emission_api.git```
 
 
+
 4. Install packages in the requirements.txt file which were used to develop the project
 
 ```pip install -r requirements.txt```
+
 
 
 5. Run the code for the API 
@@ -53,6 +57,13 @@ This will run the API locally and with the link that it produces, calls can be m
 
 
 
+6. API calls to endpoints
+With the API now running in the background, open a new terminal and make API calls as follows
+
+
+i. Predict emission goes to "/predict" endpoint
+
+```echo '{"parameter": {"state_name": "Bayela", "lga": 108, "sector": "RURAL", "credit_mean": 70, "income_mean": 600}}' | http POST http://127.0.0.1:8000/predict```
 
 
 

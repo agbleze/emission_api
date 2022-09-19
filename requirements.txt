@@ -3,8 +3,6 @@ joblib==1.1.0
 pandas==1.4.2
 pydantic==1.9.1
 scikit_learn==1.1.1
-matplotlib==3.5.1
-numpy==1.20.2
 xgboost==1.6.0
 uvicorn
 pydantic

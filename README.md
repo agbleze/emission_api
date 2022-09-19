@@ -28,6 +28,12 @@ In your terminal create a virtual environment and nagivate into it. A virtual en
 In this exercise, let assume the virtual environment was name virt. The next will be to navigate into the virtual environment
 
   ```cd virt ```
+  
+ 
+ 2. Activate the virtual environment as follows (this based on Mac)
+  
+   ```source bin\activate ```
+
 
 
 

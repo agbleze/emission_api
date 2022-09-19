@@ -22,6 +22,7 @@ It is possible to the code on your local machine to have a experience of it work
 
 1. Create a virtual environment 
 In your terminal create a virtual environment and nagivate into it. A virtual environment can be created below in mac
+
   ```python3 -m venv {provide a name for virtual environment}```
   
 In this exercise, let assume the virtual environment was name virt. The next will be to navigate into the virtual environment

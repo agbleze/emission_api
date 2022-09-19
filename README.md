@@ -11,7 +11,7 @@ i. Root endpoint ("/"): with a get method that receives no parameter and returns
 
 ii. Predict endpoint ("/predict"): with a post method accepts a number of parameters as json and return prediction of carbon emission. 
 
-An example of the what can used to call the API predict endpoint is *'{"parameter": {"state_name": "Bayela", "lga": 108, "sector": "RURAL", "credit_mean": 70, "income_mean": 600}}'.*
+An example of the what can used to call the API predict endpoint is -*'{"parameter": {"state_name": "Bayela", "lga": 108, "sector": "RURAL", "credit_mean": 70, "income_mean": 600}}'.*-
 
 The state_name is the name of a state in Nigeria, lga is Local Government Area in Nigeria, sector can be either "RURAL" or "URBAN", credit_mean is the average credit (loan) received by a household and income_mean is average income of a household.
 
@@ -61,7 +61,7 @@ This will run the API locally and with the link that it produces, calls can be m
 With the API now running in the background, open a new terminal and make API calls as follows
 
 
-i. Predict emission goes to "/predict" endpoint
+i. Predict emission goes to "/predict" endpoint.  Example:
 
 ```echo '{"parameter": {"state_name": "Bayela", "lga": 108, "sector": "RURAL", "credit_mean": 70, "income_mean": 600}}' | http POST http://127.0.0.1:8000/predict```
 

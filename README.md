@@ -66,5 +66,3 @@ i. Predict emission goes to "/predict" endpoint.  Example:
 
 ```echo '{"parameter": {"state_name": "Bayela", "lga": 108, "sector": "RURAL", "credit_mean": 70, "income_mean": 600}}' | http POST http://127.0.0.1:8000/predict```
 
-
-
